@@ -1,0 +1,229 @@
+\documentclass{article}
+\input{imports.tex}
+\input{config.tex}
+
+\begin{document}
+\titulo{Resumen Control 1}
+
+\begin{multicols}{2}
+\setcounter{section}{-1}
+\section{Preliminares}
+\proposicion{Cota para la distribución normal}{Si $X \sim \mathcal{N}(0, 1)$ y $t \geq 1$, entonces
+\[\P(X > t) \leq \frac{1}{\sqrt{2\pi}t} e^{-t^2/2}\]}
+\proposicion{Máximo de normales}{Sea $(X_n)_{n\in\N}$ sucesión iid $\mathcal{N}(0,1)$, entonces c.s. para todo $c> \sqrt{2}$, existe $n_0 \in \N$ tal que a partir de $n_0$:
+\[\max_{k\in [1..n]} X_k \leq c\sqrt{\log(n)}\]}
+\definicion{Limsup y liminf de conjuntos}{
+Sea $\{A_n\}_{n \in \N}$ colección de conjuntos. Definimos:
+\begin{itemize}
+    \item $\limsup_n A_n = \bigcap_{n \in N} \bigcup_{m \geq n} A_n$ (\textit{$A_n$ ocurre infinitas veces})
+    \item $\liminf_n A_n = \bigcup_{n \in N} \bigcap_{m \geq n} A_n$ (\textit{$A_n$ ocurre eventualmente})
+\end{itemize}}
+
+\lema{Borel-Cantelli}{Sea $\{A_n\}_{n \in \N}$ colección de eventos del espacio de probabilidad $(\Omega, \F, \P)$. Entonces
+\begin{itemize}
+    \item \textbf{(convergente)}
+    \[\sum_{n \in \N} \P(A_n) < \infty \implies \P\qty(\limsup_n A_n) = 0\]
+    \item \textbf{(divergente)} Si además los $\{A_n\}_n$ son independientes:
+    \[\sum_{n \in \N} \P(A_n) = \infty \implies \P\qty(\limsup_n A_n) = 1\]
+\end{itemize}
+}
+
+\definicion{Vector Gaussiano}{
+Un vector aleatorio $X$ sobre $\R^n$ se dice gaussiano si para todo $u \in \R^n$, $u^tX$ tiene distribución normal.
+}
+
+\definicion{Proceso Gaussiano}{Un proceso $(X_t)_t$ se dice gaussiano si para todo $n \in \N$ y $t_1 < t_2 < \dots < t_n$, el vector $(X_{t_1}, \dots, X_{t_n})$ es un vector gaussiano en $\R^n$.}
+
+\proposicion{Caracterización de Independencia}{Sean $X, Y$ vectores o bien procesos gaussianos centrados. Entonces, se tiene que $X \ind Y$ si y solo si:
+\[\forall u, v : \E[u^t X \cdot v^t Y] = 0\]
+En que los $u, v$ se interpretan en $\R^n$, o de cualquier tamaño finito dependiendo del caso.}
+
+\teorema{Radon-Nikodym}{Si $\mu, \lambda$ son medidas finitas en $(S, \Sigma)$ un espacio medible tales que
+\[\forall F \in \Sigma : \mu(F) = 0 \implies \lambda(F) = 0\]
+(condición que se define como absoluta continuidad: $\lambda \ll \mu$), entonces existe $f$ medible no-negativa tal que $\lambda(A) = \int_A f \dd{\mu}$ para todo $A \in \Sigma$. Llamamos a $f$ la derivada de Radon-Nikodym de $\lambda$ con respecto a $\mu$ y denotamos
+\[f =: \dv{\lambda}{\mu}\]}
+
+\section{Construcción de Lévy del MB}
+
+\definicion{Movimiento Browniano}{Decimos que una función continua aleatoria $B: \R^+ \to \R$ es un movimiento browniano estándar si
+\begin{enumerate}
+    \item $B_t \sim \mathcal{N}(0, t)$
+    \item $B_{t+h} - B_t \overset{\L}{=} B_h$ y es independiente de $\sigma( B_s : s \leq t)$
+    \item $B_0 = 0$
+\end{enumerate}
+    
+}
+
+\proposicion{Propiedades del MB}{
+\begin{enumerate}
+    \item \textbf{(Correlaciones)} $\E[B_t B_s] = t \wedge s$
+    \item \textbf{(Reescalado)} $\forall \alpha \neq 0 \in \R : (B_t)_t \overset{\L}{=} (a^{-1} B_{a^2t})$
+    \item \textbf{(Inversiones temporales)}
+    \begin{enumerate}
+        \item $(B_t)_{t \in [0, 1]} \overset{\L}{=} (B_{1 - t} - B_1)_{t \in [0, 1]}$
+        \item $(B_t)_{t \geq 0} \overset{\L}{=} (tB_{1/t} \mathbf{1}_{t \neq 0})_{t \geq 0}$
+    \end{enumerate}
+\end{enumerate}
+\textbf{Nota:} Un proceso gaussiano $(W_t)_t$ con $W_0 = 0$ y que cumple 1. es un MB.
+}
+
+\definicion{Conjuntos Diádicos}{Definimos los siguientes subconjuntos de $[0,1]$
+\begin{align*}
+    D_n &:= \qty{\frac{k}{2^n} : k \in \{0, \dots, 2^n\}}\\
+    D &= \bigcup_{n \in \N} D_n
+\end{align*}}
+\definicion{Construcción de Lévy}{
+Dada $(X_t)_{t \in D}$ familia de $\mathcal{N}(0, 1)$ independientes:
+\begin{itemize}
+    \item \textbf{(Construcción en los diádicos)} Construímos $B_0 = 0$, $B_1 = X_1$ y para $n \geq 1, d \in D_n \setminus D_{n-1}$
+    \[B_d = \frac{B_{d + 2^{-n}} + B_{d - 2^{-n}}}{2} + 2^{- \frac{n+1}{2}}X_d\]
+
+    \item \textbf{(Construcción en $[0, 1]$)} Definimos $F_0(t) = X_1 \cdot t$ y
+    \[F_n(t) = \begin{cases}
+        2^{-\frac{n+1}{2}} x_t & t \in D_n \setminus D_{n-1} \\
+        0 & t \in D_{n-1}\\
+        \text{lineal entre los valores}. &
+    \end{cases}\]
+    Así, $B_t = \sum_{k \geq 0} F_k(t)$ coincide con la construcción en $D$ y define un MB en $[0, 1]$.
+    \item \textbf{(Construcción en $\R^+$)} Sea $(B^i)_{i \in \N}$ una familia de MBs independientes en $[0, 1]$, entonces
+    \[B_t = B_{t - \floor{t}}^{\floor{t}} + \sum_{i=1}^{\floor{t} - 1} B_1^i\]
+    Define a un MB en $\R^+$
+\end{itemize}
+
+}
+
+\section{Propiedades Trayectoriales del MB}
+
+\definicion{Módulo de continuidad}{Una función $\phi: [0, 1] \to \R^+$ creciente se dice módulo de continuidad de $F: [0, 1] \to \R$ si
+\[\lim_{h \to 0} \sup_{l \in [0, h]} \sup_{t \in [0, 1 - h]} \frac{|F(t + l) - F(t)|}{\phi(l)} = 1\]}
+\teorema{Módulo de continuidad del MB}{El módulo de continuidad del MB es casi seguramemnte
+\[\phi(h) = \sqrt{2} \sqrt{h \log(1/h)}\]}
+\proposicion{Monotonía y derivabilidad}{c.s. el movimiento browniano no es monótono en ningún intervalo ni derivable en ningún punto}
+
+\proposicion{Ceros del MB}{
+El conjunto $C = B^{-1}(\{0\})$ de ceros del MB es un conjunto cerrado sin puntos aislados, con medida de Lebesgue nula y que no contiene intervalos.
+}
+
+\proposicion{Máximos del MB}{
+Definamos
+\[M_\text{loc} = \{t \in [0, 1] : t \text{ es máximo local de } B\}\]
+Entonces, $M_\text{loc}$ es un conjunto numerable denso en $[0, 1]$ en que todos los puntos de él tienen \textit{valor} máximo local diferente entre sí.
+}
+
+\proposicion{Absoluta continuidad}{
+Sea $\P$ la ley del movimiento Browniano $(B_t)_{t \in [0,1]}$ y $\P^{(c)}$ la ley del movimiento Browniano con drift $(B_t + ct)_{t \in [0,1]}$. Entonces se tiene la absoluta continuidad entre ellas
+\[\P^{(c)} \ll \P \ll \P^{(c)}\]
+Con derivada de Radon-Nikodým dada por
+\[\dv{\P^{(c)}}{\P}\qty((B_t)_{t \in [0,1]}) = \exp(cB_1 - \frac{c^2}{2})\]
+}
+
+\section{Propiedad de Markov}
+
+\teorema{Propiedad de Markov Débil}{Sea $(B_t)_{t \geq 0}$ un movimiento Browniano y $s \in \R^+$. Entonces el proceso $(B_{t + s} - B_s)_{t \geq 0}$ es un MB indepenediente de $(B_t)_{t \in [0, s]}$.
+}
+
+\definicion{Filtración y filtraciones límite}{Una filtración $(\F_t)_{t \geq 0}$ es una familia creciente de $\sigma$-álgebras. Definimos además las $\sigma$-álgebras límite
+\[\F_\infty = \sigma\qty(\bigcup_{t \geq 0} \F_t), \qquad \F_t^+ = \bigcap_{\epsilon >0 } F_{t + \epsilon}\]}
+
+\definicion{Filtración casi natural del MB}{Se define mediante $\F_t = \sigma(B_s : s \in [0,t])$}
+
+\teorema{Ley 0-1 de Blumenthal}{La $\sigma$-álgebra $\F_0^+$, en que $(\F_t)_t$ es la filtración casi natural del MB, es trivial. Es decir $\P(A) \in \{0, 1\}$ para $A$ en esta $\sigma$-álgebra.}
+
+\definicion{Filtración natural del MB}{La filtración natural del movimiento Browniano es la completación con respecto a $\P$ de la filtración casi natural.}
+
+\definicion{Continuidad a la derecha}{
+Una filtración $(\F_t)_t$ se dice continua a la derecha cuando para todo $t$, se tiene $\F_t = \F_t^+$.
+
+\noindent\textbf{Nota:} La filtración natural del MB es continua a la derecha.
+}
+
+\definicion{Adaptabilidad}{Un proceso $(X_t)_t$ se dice adaptado a la filtración $(\F_t)_t$ cuando $\forall t \geq 0: X_t$ es $\F_t$-medible.}
+
+\definicion{Tiempo de parada}{Un tiempo aleatorio $\tau: \Omega \to \R^+$ se dice tiempo de parada con respecto a la filtración $(\F_t)_t}$ cuando $\{\tau \leq t\} \in \F_t$.
+
+\proposicion{Tiempo de llegada a un conjunto}{
+Sea $(X_t)_{t \geq 0}$ un proceso en $\R^d$ c.s. continuo y adaptado a $(\F_t)_t$ filtración continua por la derecha. Definimos, para $A \subseteq \R^d$,
+\[\tau_A = \inf\{t \geq 0 : X_t \in A\}\]
+Si $A$ es abierto o cerrado, $\tau_A$ es tiempo de parada.
+}
+
+\definicion{$\F_\tau$}{Para $\tau$ un tiempo de parada, definimos
+\begin{align*}
+    \F_\tau &= \{\Theta \in \F_\infty : \forall t \geq 0, \Theta \cap \{\tau \leq t\} \in \F_t\}\\
+    \F_{\tau^+} &= \{\Theta \in \F_\infty : \forall t > 0, \Theta \cap \{\tau < t\} \in \F_t\}
+\end{align*}}
+
+\teorema{Propiedad de Markov Fuerte}{
+Para todo $\tau$ tiempo de parada c.s. finito, el proceso $(B_{\tau + t} - B_\tau)_{t \geq 0}$ es MB independiente de $\F_\tau$.
+}
+
+\teorema{Principio de Reflexión}{
+Sea $(B_t)_{t \geq 0}$ un MB y $\tau$ un tiempo de parada. Entonces, el proceso reflejado en $\tau$ $(B_t^*)_{t \geq 0}$ definido por
+\[B_t^* = B_t \mathbf{1}_{t \leq \tau} + (2B_\tau - B_t)\mathbf{1}_{t > \tau}\]
+Tiene la ley de un MB.
+}
+
+\teorema{Transformada de Lévy}{
+Sea $(B_t)_{t \geq 0}$ un MB. Entonces
+\[(|B_t|)_{t \geq 0} \overset{\L}{=} \qty(B_t - \inf_{s \in [0, t]} B_s)_{t \geq 0}\]
+}
+
+\section{Dimensiones Fractales}
+
+\definicion{Dimensión de Minkowski}{
+Para $(X, d)$ un espacio métrico acotado, definimos
+\[N(X, \epsilon) = \inf\qty{n \in \N : \exists (x_i)_{i=1}^n, X \subseteq \bigcup_{i=1}^n B(x_i, \epsilon)}\]
+Y con esto se definen la dimensión superior e inferior de Minkowski
+\begin{align*}
+    \overline{\dim}_M(X) &= \limsup_{\epsilon \to 0} \frac{\log(N(X, \epsilon))}{\log(1/\epsilon)}\\
+    \underline{\dim}_M(X) &= \liminf_{\epsilon \to 0} \frac{\log(N(X, \epsilon))}{\log(1/\epsilon)}
+\end{align*}
+Y la dimensión de Minkowski es el valor común cuando ambos coinciden.
+}
+
+\proposicion{Caracterización diádica}{
+Sea $X \subseteq \R^d$ compacto y
+\[\square_n = \qty{q + [0, 2^{-n}]^d : q \in 2^{-n}\Z}\]
+Así, si $\tilde{N}(X) := |\{c \in \square_n : c \cap X \neq \emptyset\}|$. Entonces
+\begin{align*}
+    \overline{\dim}_M(X) &= \limsup_{n \to \infty} \frac{\log(\tilde{N}(X))}{\log(2^n)}\\
+    \underline{\dim}_M(X) &= \liminf_{n \to \infty} \frac{\log(\tilde{N}(X))}{\log(2^n)}
+\end{align*}
+}
+
+\definicion{Medida de Hausdorff}{
+La medida $\alpha$-Hausdorff se define por
+\begin{align*}
+    \mu_H^{\alpha , \epsilon}(X) &= \inf\qty{\sum_{n \in \N} \rho_i^\alpha: \exists (x_i)_{i \in \N}, \bigcup_{i \in \N} B(x_i, \rho_i) = X , \rho_i \leq \epsilon}\\
+    \mu_H^\alpha (X) &= \lim_{\epsilon \to 0} \mu_H^{\alpha, \epsilon}(X)
+\end{align*}
+Se tiene además que si $\mu_H^{\alpha}<\infty$ entonces, para todo $\beta >\alpha$, se tiene $\mu_H^{\beta}(X) = 0$ y si $\mu_H^{\alpha}>0$, entonces para todo $\beta<\alpha$ se tiene $\mu_H^{\beta}(X) = \infty$.
+}
+
+\definicion{Dimensión de Hausdorff}{
+\[\dim_H(X) = \inf\qty{\alpha \geq 0 : \mu_H^\alpha(X) = 0} = \sup\qty{\alpha \geq 0 : \mu_H^\alpha(X) = \infty}\]
+Se tiene que $\dim_H(X) \leq \underline{\dim}_M(X)$.
+}
+
+\proposicion{Cotas para grafo e imagen}{Sea $f:[0,1]\to \R^d$ una función $\alpha$-Hölder. Entonces
+\begin{enumerate}
+    \item Si $A\subset [0,1]$, $\dim_{M/H}(f(A)) \leq \frac{1}{\alpha}\dim_{M/H}(A)$
+    \item $\dim_{M/H}(G(f)) \leq \frac{1}{\alpha} \wedge (1+d-d\alpha)$
+\end{enumerate}}
+
+\proposicion{Ceros}{Para el MB lineal, c.s. $\dim_{M/H}(B^{-1}(\{0\})) =\frac12$.}
+
+\lema{Método de la energía}{Sea $E\subseteq \R^d$ un conjunto. Supongamos que existe una medida $\nu$ tal que \[\iint_{E\times E} \frac{\nu(dx)\nu(dy)}{\|x-y\|^{\alpha}} < \infty\]
+y $\nu(E) > 0$. Entonces $\dim_H(E) \geq \alpha$.}
+
+\proposicion{Grafo e imagen}{Casi seguramente:
+\[\dim_{M/H}(G(B)) = \begin{cases}
+    \frac32 &\text{si }d=1\\
+    2 & \text{si }d\geq 2
+\end{cases}\]
+\[\dim_{M/H}(B([0,1])) = 2 \wedge d}\]
+
+
+\end{multicols}
+
+\end{document}

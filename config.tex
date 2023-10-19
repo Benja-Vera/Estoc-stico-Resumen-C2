@@ -1,0 +1,91 @@
+% Alfabeto
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\K}{\mathcal{K}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\S}{\mathcal{S}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% Griego
+\renewcommand{\epsilon}{\varepsilon}
+
+% GEOMETRY
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{0em}
+\pagestyle{empty}
+% Columnas
+\setlength{\columnsep}{2.5em}
+% Enumitem
+\setlist{nosep}
+
+% TIKZ STUFF
+\definecolor{dBlue}{RGB}{62, 71, 151}
+\definecolor{lGreen}{RGB}{137, 190, 111}
+\definecolor{lBlue}{RGB}{140, 208, 242}
+\definecolor{orange}{RGB}{239, 147, 85}
+\definecolor{black}{RGB}{0, 0, 0}
+\definecolor{red}{RGB}{206, 52, 52}
+\definecolor{grey}{RGB}{128, 128, 128}
+\definecolor{dGreen}{RGB}{0, 140, 0}
+\definecolor{purple}{RGB}{125, 0, 170}
+\definecolor{pink}{RGB}{173, 109, 168}
+\definecolor{lavander}{RGB}{101, 94, 163}
+\definecolor{cyan}{RGB}{0, 157, 169}
+
+
+% hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,  
+    urlcolor=black,
+    citecolor=dGreen,
+}
+
+% Producto interno
+\renewcommand{\innerproduct}[2]{\langle #1, #2 \rangle}
+% Independencia de VAs
+\newcommand{\ind}{\perp\!\!\!\!\perp} 
+% Operadores
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+
+% Título
+\newcommand{\titulo}[1]
+{\thispagestyle{plain}
+\begin{center}
+    \huge
+    \textbf{#1}\\
+    \normalsize
+    \textit{MA5402 Cálculo Estocástico - Primavera 2023}
+\end{center}}
+
+
+% Definición
+\newcommand{\definicion}[2]
+{\noindent\makebox[0pt][r]{\faBookmark\quad}\textbf{Definición: [#1]} #2}
+
+
+% Proposición
+\newcommand{\proposicion}[2]
+{\noindent\makebox[0pt][r]{\faLightbulbO\quad}\textbf{Proposición: [#1]} #2}
+
+% Lema
+\newcommand{\lema}[2]
+{\noindent\makebox[0pt][r]{\faGear\quad}\textbf{Lema: [#1]} #2}
+
+% Teorema
+\newcommand{\teorema}[2]
+{\noindent\makebox[0pt][r]{\faBook\quad}\textbf{Teorema: [#1]} #2}
