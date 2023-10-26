@@ -8,12 +8,14 @@
 \begin{multicols}{2}
 \setcounter{section}{-1}
 \section{Preliminares}
-\definicion{Nociones de convergencia}{
-    LAL
-}
+\definicion{Nociones de convergencia}{Sea $(X_t)_t \in [0, \infty]$ una secuencia de variables aleatorias con dominio en el mismo espacio de probabilidad. Decimos que
+\begin{enumerate}
+    \item $X_t \to X_\infty$ c.s cuando $\P[\omega : X_n(\omega) \to X_\infty(\omega)] = 1$
+    \item $X_t \to X_\infty$ en $L^p$ cuando $\E[|X_t - X_\infty|^p] \to 0$ si $t \to \infty$
+    \item $X_t \to X_\infty$ en $\P$ cuando $\forall \epsilon > 0 : \P[|X_t - X_\infty| \geq \epsilon] \to 0$ si $t \to \infty$
+\end{enumerate}
 
-\definicion{Funciones de variación acotada}{
-    LEL
+Sabemos que 1. y 2. implican 3. También, convergencia en $L^p$ implica convergencia en $L^s$ si $s \in [1, p]$. Además, 3. implica que existe subsucesión que converge c.s. Además, tanto 1. como 3. en conjunto con la existencia de $Y \in L^p$ con $|X_t| \leq Y$ implican 2. Finalmente, tanto 2. como 3. son convergencias metrizables.
 }
 
 \definicion{Esperanza Condicional}{
@@ -26,10 +28,9 @@
         \[\E[c(X) | \G] \geq c(E[X | \G])\]
         \item \textbf{(medibilidad)} Si $Z$ es $\G$-medible, entonces
         \[\E[ZX | \G] = Z \E[X | G]\]
-        \item \textbf{(independencia)}
-    \end{enumerate}
-}
-
+        \item \textbf{(independencia)} Si $X$ es independiente de $\G$, entonces
+        \[\E[X | \G] = \E[X]\]
+    \end{enumerate}}
 \section{Martingalas continuas}
 
 Sea $(\Omega, \F, (\F_t)_{t}, \P)$ un e.d.p filtrado.
@@ -73,10 +74,23 @@ Si $(X_t)_t$ es (sub/super) martingala, entonces para todo $t \geq 0$
 \end{enumerate}
 }
 
-\proposicion{Subidas y bajadas}{LIL}
+\lema{Subidas y bajadas}{El número $\gamma_{a, b}(t)$ de subidas y bajadas de $[a, b]$ hecho por $t \mapsto X_t(\omega)$ hasta el tiempo $t$ se define como el mayor $k \in \N$ tal que existen
+\[0 \leq s_1 < t_1 < s_2 < t_2 < \dots < s_k < t_k \leq t\]
+con $X_{s_i}(\omega) < a$ y $X_{t_i}(\omega) > b$. Con esto, tenemos que
+\[\E[\gamma_{a, b}(t)] \leq \frac{1}{b-a} \E[(X_t - a)^-]\]}
+
+\definicion{Uniforme integrabilidad}{Decimos que $(X_t)_t$ es uniformemente integrable (UI) si cuando $a \to \infty$,
+\[\sup_{t \geq 0} \E[|X_t| \mathbf{1}_{|x_t| \geq a}] \to 0\]}
+
+\proposicion{Condiciones para ser UI}{$(X_t)_t$ es UI si se tiene alguna de estas condiciones
+\begin{itemize}
+    \item $(|X_t|)_t$ está acotado por una v.a en $L^1$ o por un proceso UI.
+    \item Existe $\phi: \R^+ \to \R$ convexa tal que
+    \[\frac{\phi(x)}{x} \to \infty,\qquad \sup_{t \geq 0} \E[\phi(|x_t|)] < \infty\]
+\end{itemize}}
 
 \teorema{De convergencia no UI}{
-Sea $X$ sobremartingala continua por la derecha tal que $\sup_{t \geq 0} \E[|x_t|] < \infty$. Entonces, existe $X_\infty \in L^1$ tal que
+Sea $X$ supermartingala continua por la derecha tal que $\sup_{t \geq 0} \E[|x_t|] < \infty$. Entonces, existe $X_\infty \in L^1$ tal que
 \[X_t \to X_\infty\]
 Cuando $t \to \infty$ en el sentido casi seguro.}
 
@@ -97,22 +111,89 @@ En particular, para $S$ t.d.p, tenemos $X_S = \E[X_\infty | \F_S]$ y tomando esp
 }
 
 \teorema{De parada opcional de Doob acotado}{Sea $(X_t)_t$ martingala continua por la derecha y $S \leq T$ t.d.p acotados. Entonces $X_S, X_T \in L^1$ y
-\[X_S = \E[X_T | \F_S]\]}
+\[X_S = \E[X_T | \F_S]\]
+Tomando esperanza y $S = 0$, se obtiene $\E[X_T] = \E[X_0]$}
 
 \proposicion{Martingala detenida}{
-Sea $(X_t)_t$ martingala continua a la derecha y $T$ t.d.p. Definimos $(X^T_t)_t$ como el proceso detenido $X^T_t = X_{t \wedge t}$. Entonces:
+Sea $(X_t)_t$ (super)martingala continua a la derecha y $T$ t.d.p. Definimos $(X^T_t)_t$ como el proceso detenido $X^T_t = X_{t \wedge t}$. Entonces:
 \begin{itemize}
-    \item $X^T$ es martingala.
+    \item $X^T$ es (super)martingala.
     \item Si $X$ es martingala UI, entonces $X^T$ también lo es y tenemos
     \[X^T_t = \E[X_T | \F_t]\]
 \end{itemize}
 }
 
-\definicion{Martingala reversa}{LAL}
+Lo siguiente solo aplica para el caso discreto
 
-\teorema{Convergencia de martingalas reversas}{LEL}
+\definicion{Martingala reversa}{
+Un proceso indexado por los enteros negativos $(X_n)_{n \in -\N}$ se dice martingala reversa si $X_0 \in L^1$ y para todo $m < n$ se cumple
+\[\E[X_n | \F_m] = X_m\]
+Aquí $(\F_n)_n$ es un filtración reversa, en el sentido de que es decreciente hacia los negativos.
+}
+
+\teorema{Convergencia de martingalas reversas}{Sea $X$ una martingala reversa. Entonces existe $X_{-\infty}$ tal que $X_n \to X_{-\infty}$ c.s y en $L^1$. Si definimos $\F_{-\infty} = \bigcap_{n \in -\N} \F_n$, entonces
+\[X_{-\infty} = \E[X_0 | \F_{-\infty}]\]}
 
 \section{Variaciones y Martingalas Locales}
+
+\definicion{Variación}{
+Para $f: [0, T] \to \R$, definimos
+\[V_T(f) = \sup\qty{\sum_{i = 0}^{N-1} |f(t_{i+1}) - f(t_i)|}\]
+En que el supremo se toma sobre todas las particiones finitas del intervalo $[0, T]$. Si $V_T(f) < \infty$ para todo $T \geq 0$, decimos que $f$ es de variación acotada.
+}
+
+\proposicion{Descomposición}{$A$ es función de variación acotada ssi se puede descomponer como suma de una función creciente y otra decreciente.
+
+A partir de una función de variación acotada, se puede definir una medida con signo finita $\mu$ sobre intervalos acotados. Con lo cual se define
+\[\int_0^T f(s) \dd{A}(s) = \int_{[0, T]} f(s) \dd{\mu}(s)\]}
+
+\proposicion{Continuidad de la variación}{Si $f$ es una función continua, $t \mapsto V_t(f)$ es una función continua.}
+
+\lema{De aproximación}{
+Sea $f: [0, T] \to \R$ continua y $A: [0, T] \to \R$ continua de variación acotada. Si $(t_i^n)_{i = 0}^n$ es una secuencia de particiones de $[0, T]$ con $t_0^n = 0$ y $t_n^n = T$ y tales que $\Delta t_i^n \to 0$ cuando $n \to \infty$, entonces
+\[\int_0^T f(s) \dd{A}(s) = \lim_{n \to \infty} \sum_{i = 0}^{n - 1} f(t_i)(A(t_{i + 1}^n) - A(t_i^n))\]
+}
+
+\teorema{Martingalas de variación acotada}{
+Si $M$ es martingala de variación acotada con $M_0 = 0$ c.s, entonces $M \equiv 0$.
+}
+
+\definicion{Martingala local}{Decimos que $(M_t)_t$ es martingala local continua que parte de $0$ si
+\begin{enumerate}
+    \item $M_0 = 0$
+    \item Existe $(\tau_n)_n \nearrow \infty$ con $M^{\tau_n}$ martingala continua UI (decimos en este caso que la sucesión $(\tau_n)_n$ \textit{localiza} a $M$)
+\end{enumerate}
+Más generalmente, decimos que $(M_t)_t$ es martingala local continua si $(M_t - M_0)_t$ es una martingala local que parte de $0$ con $M_0$ $\F_0$-medible.}
+
+\proposicion{Sobre tiempos de localización}{
+Si $(M_t)_t$ es martingala local continua y
+\[\tau_n = \inf\qty{ t \geq 0 : M_t \notin (-n, n)}\]
+Entonces $(\tau_n)_n$ localiza a $M$.
+}
+
+\proposicion{Condiciones para que una martingala local sea martingala}{Sea $(M_t)_t$ martingala local continua con $M_0$ integrable.
+\begin{itemize}
+    \item Si $M$ es no-negativa, entonces es supermartingala.
+    \item Si existe $Y \in L^1$ tal que $\sup_{t \geq 0} |M_t| \leq Y$, entonces $M$ es martingala UI.
+    \item Si $\tau$ es t.d.p, entonces $M^\tau$ es una martingala local.
+\end{itemize}
+}
+
+\teorema{Martingalas locales de variación acotada}{Si $M$ es martingala local que parte en $0$ de variación acotada, entonces $M \equiv 0$.}
+
+\definicion{Variación cuadrática para martingalas locales}{
+    Sea $(M_t)_{t\geq 0}$ una martingala local continua, entonces existe un único proceso $\langle M\rangle_t$ tal que 
+    \begin{enumerate}
+        \item $\langle M\rangle_0 = 0$
+        \item $\langle M\rangle_t$ es creciente
+        \item $M^2_t - \langle M\rangle_t $ es una martingala local continua
+    \end{enumerate}
+    Más aún, si fijamos $T>0$, $((t_i^n)_{i=1}^n)_{n\in \N}$ una secuencia (determinista) de particiones con $t_0^n = 0$, $t_n^n = T$ y $\Delta t_i^n \rightarrow 0$.
+    \[\langle M\rangle_T = \lim_{n \to \infty} \sum_{i=0}^{n-1} (M(t_{i+1}^n) -M(t_i))^2\]
+    en probabilidades. Al proceso $(\langle M\rangle_t)_{t\geq 0}$ lo llamamos variación cuadrática de $M$.
+    
+    Si $M$ es además una martingala acotada (c.s. por una constante determinista), entonces $M^2_t - \langle M\rangle_t$ es una martingala.
+}
 
 
 \end{multicols}
