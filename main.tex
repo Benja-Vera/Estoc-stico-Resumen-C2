@@ -97,7 +97,7 @@ Sea $X$ supermartingala continua por la derecha tal que $\sup_{t \geq 0} \E[|x_t
     En cualquiera de estos casos tenemos que para todo $t \geq 0, X_t = \E[X_\infty | \F_t]$.
 \end{enumerate}}
 
-\teorema{De parada opcional de Doob no acotado}{Sea $(X_t)_t$ martingala UI continua a la derecha. Si $S, T$ son dos t.d.p con $S \leq T$, entonces $X_S, X_T \in L^1$ y $X_S = \E[X_T | \F_S]$. En particular, para $S$ t.d.p, tenemos $X_S = \E[X_\infty | \F_S]$ y tomando esperanza se concluye $\E[X_S] = \E[X_\infty] = \E[X_0]$
+\teorema{De parada opcional de Doob no acotado}{Sea $(X_t)_t$ martingala UI (supermartingala no negativa) continua a la derecha. Si $S, T$ son dos t.d.p con $S \leq T$, entonces $X_S, X_T \in L^1$ y $X_S = (\geq) \E[X_T | \F_S]$. En particular, para $S$ t.d.p, tenemos $X_S = (\geq) \E[X_\infty | \F_S]$ y tomando esperanza se concluye $\E[X_S] = \E[X_\infty] = \E[X_0]$
 }
 
 \teorema{De parada opcional de Doob acotado}{Sea $(X_t)_t$ (super)martingala continua por la derecha y $S \leq T$ t.d.p acotados. Entonces $X_S, X_T \in L^1$ y $X_S = (\geq) \E[X_T | \F_S]$. Tomando esperanza y $S = 0$, se obtiene $\E[X_T] = (\leq) \E[X_0]$}
