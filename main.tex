@@ -19,17 +19,13 @@ Sabemos que 1. y 2. implican 3. También, convergencia en $L^p$ implica converge
 }
 
 \definicion{Esperanza Condicional}{
-    Para $(\Omega, \F, \P)$ espacio de probabilidad, $X$ variable aleatoria en $L^1$ y $\G$ sub $\sigma$-álgebra de $\F$, la esperanza condicional $\E[X | \G]$ se define como aquella variable integrable $\G$-medible tal que
-    \[\forall G \in \G : \E[Y \mathbf{1}_{G}] = \E[X \mathbf{1}_{G}]\]
+    Para $(\Omega, \F, \P)$ espacio de probabilidad, $X$ variable aleatoria en $L^1$ y $\G$ sub $\sigma$-álgebra de $\F$, la esperanza condicional $\E[X | \G]$ se define como aquella variable integrable $\G$-medible tal que $\forall G \in \G : \E[Y \mathbf{1}_{G}] = \E[X \mathbf{1}_{G}]$.
     La esperanza condicional posee, entre otras, las siguientes propiedades:
     \begin{enumerate}
         \item \textbf{(Esperanza anidada)} $\E[\E[X | \G]] = \E[X]$
-        \item \textbf{(Jensen)} Si $c : \R \to \R$ convexa con $c(X)$ integrable, entonces
-        \[\E[c(X) | \G] \geq c(E[X | \G])\]
-        \item \textbf{(medibilidad)} Si $Z$ es $\G$-medible, entonces
-        \[\E[ZX | \G] = Z \E[X | G]\]
-        \item \textbf{(independencia)} Si $X$ es independiente de $\G$, entonces
-        \[\E[X | \G] = \E[X]\]
+        \item \textbf{(Jensen)} Si $c : \R \to \R$ convexa con $c(X)$ integrable, entonces $\E[c(X) | \G] \geq c(E[X | \G])$
+        \item \textbf{(medibilidad)} Si $Z$ es $\G$-medible, entonces $\E[ZX | \G] = Z \E[X | G]$
+        \item \textbf{(independencia)} Si $X$ es independiente de $\G$, entonces $\E[X | \G] = \E[X]$
     \end{enumerate}}
 \section{Martingalas continuas}
 
@@ -62,8 +58,7 @@ Sea $(X_t)_t$ adaptado y $f: \R \to \R$ convexa tal que $\E[|f(X_t)|] < \infty$ 
 }
 
 \proposicion{supremo}{
-Si $(X_t)_t$ es (sub/super) martingala, entonces para todo $t \geq 0$
-\[\sup_{s \in [0, t]} \E[|X_s|] < \infty\]}
+Si $(X_t)_t$ es (sub/super) martingala, entonces para todo $t \geq 0, \sup_{s \in [0, t]} \E[|X_s|] < \infty$}
 
 \teorema{Desigualdades clásicas}{
 \begin{enumerate}
@@ -90,40 +85,32 @@ con $X_{s_i}(\omega) < a$ y $X_{t_i}(\omega) > b$. Con esto, tenemos que
 \end{itemize}}
 
 \teorema{De convergencia no UI}{
-Sea $X$ supermartingala continua por la derecha tal que $\sup_{t \geq 0} \E[|x_t|] < \infty$. Entonces, existe $X_\infty \in L^1$ tal que
-\[X_t \to X_\infty\]
-Cuando $t \to \infty$ en el sentido casi seguro.}
+Sea $X$ supermartingala continua por la derecha tal que $\sup_{t \geq 0} \E[|x_t|] < \infty$. Entonces, existe $X_\infty \in L^1$ tal que $X_t \to X_\infty$ c.s cuando $t \to \infty$.}
 
-\definicion{Cerradura}{Decimos que $(X_t)_t$ es martingala cerrada si existe $Z \in L^1$ tal que para todo $t \geq 0$
-\[X_t = \E[Z | \F_t]\]}
+\definicion{Cerradura}{Decimos que $(X_t)_t$ es martingala cerrada si existe $Z \in L^1$ tal que para todo $t \geq 0, X_t = \E[Z | \F_t]$}
+
 \teorema{De convergencia UI}{Sea $(X_t)_t$ martingala continua por la derecha. LSSE:
 \begin{enumerate}
     \item $X$ cerrada.
     \item $X$ UI.
     \item $X$ converge casi seguramente y en $L^1$ a una $X_\infty$ cuando $t \to \infty$.
-    En cualquiera de estos casos tenemos que para todo $t \geq 0$
-    \[X_t = \E[X_\infty | \F_t]\]
+    En cualquiera de estos casos tenemos que para todo $t \geq 0, X_t = \E[X_\infty | \F_t]$.
 \end{enumerate}}
 
-\teorema{De parada opcional de Doob no acotado}{Sea $(X_t)_t$ martingala UI continua a la derecha. Si $S, T$ son dos t.d.p con $S \leq T$, entonces $X_S, X_T \in L^1$ y
-\[X_S = \E[X_T | \F_S]\]
-En particular, para $S$ t.d.p, tenemos $X_S = \E[X_\infty | \F_S]$ y tomando esperanza se concluye $\E[X_S] = \E[X_\infty] = \E[X_0]$
+\teorema{De parada opcional de Doob no acotado}{Sea $(X_t)_t$ martingala UI continua a la derecha. Si $S, T$ son dos t.d.p con $S \leq T$, entonces $X_S, X_T \in L^1$ y $X_S = \E[X_T | \F_S]$. En particular, para $S$ t.d.p, tenemos $X_S = \E[X_\infty | \F_S]$ y tomando esperanza se concluye $\E[X_S] = \E[X_\infty] = \E[X_0]$
 }
 
-\teorema{De parada opcional de Doob acotado}{Sea $(X_t)_t$ martingala continua por la derecha y $S \leq T$ t.d.p acotados. Entonces $X_S, X_T \in L^1$ y
-\[X_S = \E[X_T | \F_S]\]
-Tomando esperanza y $S = 0$, se obtiene $\E[X_T] = \E[X_0]$}
+\teorema{De parada opcional de Doob acotado}{Sea $(X_t)_t$ martingala continua por la derecha y $S \leq T$ t.d.p acotados. Entonces $X_S, X_T \in L^1$ y $X_S = \E[X_T | \F_S]$. Tomando esperanza y $S = 0$, se obtiene $\E[X_T] = \E[X_0]$}
 
 \proposicion{Martingala detenida}{
 Sea $(X_t)_t$ (super)martingala continua a la derecha y $T$ t.d.p. Definimos $(X^T_t)_t$ como el proceso detenido $X^T_t = X_{t \wedge t}$. Entonces:
 \begin{itemize}
     \item $X^T$ es (super)martingala.
-    \item Si $X$ es martingala UI, entonces $X^T$ también lo es y tenemos
-    \[X^T_t = \E[X_T | \F_t]\]
+    \item Si $X$ es martingala UI, entonces $X^T$ también lo es y tenemos $X^T_t = \E[X_T | \F_t]$.
 \end{itemize}
 }
 
-Lo siguiente solo aplica para el caso discreto
+\noindent Lo siguiente solo aplica para el caso discreto
 
 \definicion{Martingala reversa}{
 Un proceso indexado por los enteros negativos $(X_n)_{n \in -\N}$ se dice martingala reversa si $X_0 \in L^1$ y para todo $m < n$ se cumple
@@ -181,19 +168,82 @@ Entonces $(\tau_n)_n$ localiza a $M$.
 
 \teorema{Martingalas locales de variación acotada}{Si $M$ es martingala local que parte en $0$ de variación acotada, entonces $M \equiv 0$.}
 
-\definicion{Variación cuadrática para martingalas locales}{
-    Sea $(M_t)_{t\geq 0}$ una martingala local continua, entonces existe un único proceso $\langle M\rangle_t$ tal que 
+\definicion{Variación cuadrática}{
+    Sea $(M_t)_{t\geq 0}$ una martingala local continua, entonces existe un único proceso $\qvariation{M}_t$ tal que 
     \begin{enumerate}
-        \item $\langle M\rangle_0 = 0$
-        \item $\langle M\rangle_t$ es creciente
-        \item $M^2_t - \langle M\rangle_t $ es una martingala local continua
+        \item $\qvariation{M}_0 = 0$
+        \item $\qvariation{M}_t$ es creciente
+        \item $M^2_t - \qvariation{M}_t $ es una martingala local continua
     \end{enumerate}
     Más aún, si fijamos $T>0$, $((t_i^n)_{i=1}^n)_{n\in \N}$ una secuencia (determinista) de particiones con $t_0^n = 0$, $t_n^n = T$ y $\Delta t_i^n \rightarrow 0$.
-    \[\langle M\rangle_T = \lim_{n \to \infty} \sum_{i=0}^{n-1} (M(t_{i+1}^n) -M(t_i))^2\]
+    \[\qvariation{M}_T = \lim_{n \to \infty} \sum_{i=0}^{n-1} (M(t_{i+1}^n) -M(t_i))^2\]
     en probabilidades. Al proceso $(\langle M\rangle_t)_{t\geq 0}$ lo llamamos variación cuadrática de $M$.
     
-    Si $M$ es además una martingala acotada (c.s. por una constante determinista), entonces $M^2_t - \langle M\rangle_t$ es una martingala.
+    Si $M$ es además una martingala acotada (c.s. por una constante determinista), entonces $M^2_t - \qvariation{M}_t$ es una martingala.
 }
+
+\proposicion{Variación cuadrática de una martingala detenida}{Si $(M_t)_t$ es una martingala local y $\tau$ es un tiempo de parada, entonces $\qvariation{M^\tau}_t = \qvariation{M}_{t \wedge \tau}$}
+
+\proposicion{Caracterización de $\qvariation{M}_\infty$ integrable}{
+    Sea $(M_t)_{t\geq 0}$ una martingala local con $M_0 \in L^2$. LSSE:
+    \begin{itemize}
+        \item $\E[\langle M\rangle_{\infty} ] < \infty$
+        \item $M$ es una martingala continua acotada en $L^2$ (o sea $\sup_{t \geq 0} \E[M^2_t] < \infty$).
+    \end{itemize} 
+    En cualquier caso $M^2_t - \langle M\rangle_t$ es una martingala UI.
+}
+
+\proposicion{Caracterización de $\qvariation{M}_t$ integrable}{
+    Sea $(M_t)_{t\geq 0}$ una martingala local con $M_0 \in L^2$. LSSE:
+    \begin{itemize}
+        \item $\E[\langle M\rangle_t ] < \infty$ para todo $t>0$
+        \item $M$ es una martingala continua con $\E[M^2_t] < \infty$ para todo $t>0$.
+    \end{itemize} 
+    En cualquier caso $M^2_t - \langle M\rangle_t$ es una martingala.
+}
+
+\definicion{Covariación cuadrática}{
+    Sean $M,N$ martingalas locales. Se define la covariación cuadrática como 
+    \[\qcovariation{M}{N} = \frac12 (-\qvariation{M} - \qvariation{N} + \qvariation{M + N})\]
+    En que $\qcovariation{M}{M} = \qvariation{M}$.
+}
+
+\proposicion{Caracterización de la covariación cuadrática}{
+    $\langle M, N\rangle$ es el único proceso tal que
+    \begin{enumerate}
+        \item $\langle M, N\rangle_0 = 0$
+        \item $\langle M, N \rangle$ es de variación acotada.
+        \item $MN - \langle M, N\rangle$ es una martingala local.
+    \end{enumerate}
+}
+
+\proposicion{De aproximación}{
+    Para todo $t\geq 0$ y toda secuencia de particiones $(t_i^n)_{i=1}^n$ c.s.
+    \[\langle M, N \rangle = \underset{n\rightarrow \infty}{\lim} ~ \sum_{i=0}^{n-1} (M_{t_{i+1}} -M_{t_i})(N_{t_{i+1}} -N_{t_i})\]
+}
+
+\proposicion{Misceláneo sobre covariación y tdp}{
+\begin{itemize}
+    \item Si $\tau$ es un tdp, entonces 
+    \[\langle M^{\tau}, N^{\tau} \rangle_t=\langle M, N \rangle_{\tau\wedge t} = \langle M^{\tau}, N \rangle_t =\langle M, N^{\tau} \rangle_t\]
+    \item $N^{\tau} (M-M^{\tau})$ es martingala local.
+    \item Si $M,N$ son martingalas acotadas en $L^2$ entonces $MN -\langle M,N\rangle$ es una martingala UI.
+\end{itemize}
+}
+
+\teorema{Desigualdad de Kunita-Watabane}{
+    Sean $(H_u)_{u\geq 0}, (K_u)_{u \geq 0}$ dos procesos medibles y $(M_u)_{u\geq 0}, (N_u)_{u\geq 0}$ dos martingalas locales. Entonces c.s. para todo $T\geq 0$:
+    \[\int_0^T |H_u||M_u|d|\langle M, N\rangle|_u \leq \left( \int_0^T |H_u|^2 d\langle M\rangle_u\right)^{\frac12} \left( \int_0^T |K_u|^2 d\langle N\rangle_u\right)^{\frac12}\]}
+
+\definicion{Semimartingala}{
+Decimos que $(X_t)_{t\geq 0}$ es una semi-martingala si existen $M$ una martingala local y $A$ un proceso adaptado, continuo y de variación acotada tales que $X_t = M_t + A_t$ para todo $t$.}
+
+\definicion{Covariación de semimartingalas}{
+Sean $X, Y$ semi-martingalas. Tenemos que $\langle X, Y\rangle := \langle M^X, M^Y\rangle$, con $M^X$, $M^Y$ las martingalas asociadas a $X$ y a $Y$ respectivamente.}
+
+\proposicion{De aproximacón}{
+    Para todo $t>0$ determinista y toda secuencia de particiones $(t_i)_{i=1}^n$ se tiene 
+\[\sum_{i=0}^{n-1} (X_{t_{i+1}^n} - X_{t_i^n})(Y_{t_{i+1}^n} - Y_{t_i^n}) \underset{n\rightarrow \infty}{\overset{\P}{\longrightarrow}} \langle X, Y\rangle\]}
 
 
 \end{multicols}
