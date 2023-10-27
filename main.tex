@@ -241,9 +241,9 @@ Decimos que $(X_t)_{t\geq 0}$ es una semi-martingala si existen $M$ una martinga
 \definicion{Covariación de semimartingalas}{
 Sean $X, Y$ semi-martingalas. Tenemos que $\langle X, Y\rangle := \langle M^X, M^Y\rangle$, con $M^X$, $M^Y$ las martingalas asociadas a $X$ y a $Y$ respectivamente.}
 
-\proposicion{De aproximacón}{
+\proposicion{De aproximación}{
     Para todo $t>0$ determinista y toda secuencia de particiones $(t_i)_{i=1}^n$ se tiene 
-\[\sum_{i=0}^{n-1} (X_{t_{i+1}^n} - X_{t_i^n})(Y_{t_{i+1}^n} - Y_{t_i^n}) \underset{n\rightarrow \infty}{\overset{\P}{\longrightarrow}} \langle X, Y\rangle\]}
+\[\qcovariation{X}{Y} = \lim_{n \to \infty} \sum_{i=0}^{n-1} (X_{t_{i+1}^n} - X_{t_i^n})(Y_{t_{i+1}^n} - Y_{t_i^n})\]}
 
 
 \end{multicols}
